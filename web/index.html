@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBASIC 5.21 - WebAssembly Interpreter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>MBASIC 5.21</h1>
+            <p class="subtitle">C++ WebAssembly Interpreter</p>
+        </header>
+
+        <div id="main-container">
+            <div id="terminal-section">
+                <div id="terminal">
+                    <div id="output"></div>
+                    <div id="input-line">
+                        <span id="prompt">Ok</span>
+                        <input type="text" id="input" autocomplete="off" autofocus>
+                    </div>
+                </div>
+            </div>
+
+            <div id="editor-section">
+                <div id="editor-header">
+                    <span>Program Editor</span>
+                    <div id="editor-buttons">
+                        <button id="btn-load">Load</button>
+                        <button id="btn-save">Save</button>
+                        <button id="btn-run">RUN</button>
+                        <button id="btn-stop" disabled>STOP</button>
+                    </div>
+                </div>
+                <textarea id="editor" placeholder="Enter your BASIC program here...
+Example:
+10 PRINT &quot;Hello, World!&quot;
+20 FOR I = 1 TO 5
+30 PRINT I; &quot; squared is &quot;; I*I
+40 NEXT I
+50 END"></textarea>
+            </div>
+        </div>
+
+        <div id="file-section">
+            <div id="file-header">
+                <span>Virtual Files</span>
+                <button id="btn-upload">Upload File</button>
+                <button id="btn-download">Download File</button>
+            </div>
+            <div id="file-list"></div>
+            <input type="file" id="file-upload" style="display:none" multiple>
+        </div>
+
+        <footer>
+            <p><a href="https://github.com/avwohl/mbasicc">mbasicc</a> - MBASIC 5.21 C++ Interpreter</p>
+        </footer>
+    </div>
+
+    <script type="module" src="mbasic-ui.js"></script>
+</body>
+</html>

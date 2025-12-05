@@ -1,0 +1,4 @@
+~/src/mbasicc is a c++ portable implimentation
+of mbasic 5.21. Use the library it makes (or c++ sources as needed)
+to make a webassembly page to run mbasic in a browser.
+Include fileio to access local files if the user allows.

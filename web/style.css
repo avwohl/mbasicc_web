@@ -1,0 +1,309 @@
+/* MBASIC 5.21 WebAssembly - Terminal Style */
+
+:root {
+    --bg-color: #1a1a2e;
+    --terminal-bg: #0f0f1a;
+    --text-color: #00ff00;
+    --text-dim: #008800;
+    --header-bg: #16213e;
+    --border-color: #0f3460;
+    --button-bg: #0f3460;
+    --button-hover: #1a4a7a;
+    --error-color: #ff4444;
+    --input-bg: #0a0a14;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+#app {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    padding: 1rem;
+    background: var(--header-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+header h1 {
+    font-size: 2rem;
+    text-shadow: 0 0 10px var(--text-color);
+}
+
+.subtitle {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+}
+
+#main-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    flex: 1;
+    min-height: 400px;
+}
+
+@media (max-width: 900px) {
+    #main-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Terminal Section */
+#terminal-section {
+    display: flex;
+    flex-direction: column;
+}
+
+#terminal {
+    background: var(--terminal-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#output {
+    flex: 1;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.4;
+    padding-bottom: 0.5rem;
+}
+
+#output .error {
+    color: var(--error-color);
+}
+
+#output .system {
+    color: var(--text-dim);
+}
+
+#input-line {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    padding-top: 0.5rem;
+}
+
+#prompt {
+    color: var(--text-color);
+    margin-right: 0.5rem;
+}
+
+#input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    caret-color: var(--text-color);
+}
+
+#input::placeholder {
+    color: var(--text-dim);
+}
+
+/* Editor Section */
+#editor-section {
+    display: flex;
+    flex-direction: column;
+}
+
+#editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--header-bg);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+}
+
+#editor-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+button {
+    background: var(--button-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+button:hover:not(:disabled) {
+    background: var(--button-hover);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#editor {
+    flex: 1;
+    background: var(--terminal-bg);
+    border: 2px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+    border-radius: 0 0 8px 8px;
+    padding: 1rem;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.4;
+    resize: none;
+    outline: none;
+    min-height: 300px;
+}
+
+#editor::placeholder {
+    color: var(--text-dim);
+}
+
+/* File Section */
+#file-section {
+    margin-top: 1rem;
+    background: var(--header-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+#file-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+#file-header span {
+    font-weight: bold;
+}
+
+#file-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-height: 2rem;
+}
+
+.file-item {
+    background: var(--button-bg);
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.file-item:hover {
+    background: var(--button-hover);
+}
+
+.file-item .delete {
+    color: var(--error-color);
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    margin-top: 1rem;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+}
+
+footer a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Loading indicator */
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+#loading.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--text-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--terminal-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--button-hover);
+}
