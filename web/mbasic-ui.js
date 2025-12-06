@@ -471,9 +471,7 @@ async function init() {
 
         clearScreen();
         print('MBASIC Version 5.21\n');
-        print('Copyright (C) Microsoft 1977-1983\n');
-        print('C++ Implementation by mbasicc project\n');
-        print('WebAssembly port\n\n');
+        print('c++ WebAssembly  git@github.com:avwohl/mbasicc_web.git\n');
         print('Ok\n');
 
         setupEventHandlers();
