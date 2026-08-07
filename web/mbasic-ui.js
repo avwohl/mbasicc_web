@@ -1,5 +1,5 @@
-// MBASIC 5.21 WebAssembly - User Interface
-// Provides terminal interaction and file management for the BASIC interpreter
+// MBASIC 5.21 WebAssembly — user interface
+// Runs the terminal and manages the files for the BASIC interpreter
 
 // Module will be loaded from mbasic.js
 let Module = null;
@@ -188,25 +188,25 @@ function addLineToEditor(line) {
 // Execute an immediate command
 function executeImmediate(cmd) {
     if (!Module) {
-        printError('WASM module not loaded\n');
+        printError('The WebAssembly module is not loaded\n');
         return;
     }
 
     // For now, just show a message for unsupported immediate commands
-    printSystem('Immediate mode not yet supported. Use editor and RUN.\n');
+    printSystem('Immediate mode does not work yet. Write the program in the editor, then press RUN.\n');
     print('Ok\n');
 }
 
 // Run the program
 function runProgram() {
     if (!Module) {
-        printError('WASM module not loaded\n');
+        printError('The WebAssembly module is not loaded\n');
         return;
     }
 
     const source = editor.value.trim();
     if (!source) {
-        printError('No program to run\n');
+        printError('The editor has no program to run\n');
         print('Ok\n');
         return;
     }
@@ -471,14 +471,14 @@ async function init() {
 
         clearScreen();
         print('MBASIC Version 5.21\n');
-        print('c++ WebAssembly  git@github.com:avwohl/mbasicc_web.git\n');
+        print('C++ WebAssembly  github.com/avwohl/mbasicc_web\n');
         print('Ok\n');
 
         setupEventHandlers();
         input.focus();
 
     } catch (error) {
-        printError(`Failed to load WASM module: ${error.message}\n`);
+        printError(`The WebAssembly module did not load: ${error.message}\n`);
         console.error(error);
     }
 }
