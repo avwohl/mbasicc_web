@@ -51,7 +51,7 @@ ALL_SRCS := $(MBASIC_CORE_SRCS) $(WEB_SRCS)
 # Output
 OUTPUT := web/mbasic.js
 
-.PHONY: all clean serve
+.PHONY: all clean serve test
 
 all: $(OUTPUT)
 
@@ -64,3 +64,9 @@ clean:
 # Simple development server
 serve: all
 	cd web && python3 -m http.server 8080
+
+# Drive the built page in a real browser and diff the interpreter's output
+# against the native build's. Named `test` because that is the target
+# sync-repos.sh looks for when it decides a repo has a test suite.
+test: all
+	python3 tests/test_wasm.py
