@@ -62,48 +62,9 @@ cd web
 python3 -m http.server 8080
 ```
 
-## Deployment
-
-Copy the contents of the `web/` directory to any static web server:
-
-```
-web/
-├── index.html      # Main page
-├── style.css       # Styling
-├── mbasic-ui.js    # UI controller
-├── mbasic.js       # WASM loader (generated)
-└── mbasic.wasm     # WebAssembly binary (generated)
-```
-
-**Important:** Your web server must serve `.wasm` files with the correct MIME type:
-```
-Content-Type: application/wasm
-```
-
-Most modern web servers handle this automatically. If you encounter issues, configure your server to add this MIME type.
-
 ## Usage
 
-### Terminal Commands
-
-Type commands directly in the terminal input:
-
-| Command | Description |
-|---------|-------------|
-| `NEW` | Clear the current program |
-| `LIST` | Display the current program |
-| `RUN` | Execute the current program |
-| `CLS` | Clear the terminal screen |
-| `FILES` | List files in virtual filesystem |
-| `LOAD "filename"` | Load a program from virtual storage |
-| `SAVE "filename"` | Save current program to virtual storage |
-
-### Editor
-
-- Write or paste BASIC code in the editor panel
-- Click **Run** to execute (or press the Run button)
-- Click **Stop** to halt a running program
-- Use **Load/Save** buttons to manage files
+Type BASIC commands such as `RUN`, `LIST` and `SAVE "filename"` in the terminal input, or write code in the editor panel and click **Run**. [docs/usage.md](docs/usage.md) lists the terminal commands and the editor buttons.
 
 ### Example Program
 
@@ -116,41 +77,11 @@ Type commands directly in the terminal input:
 60 PRINT "Hello, "; N$; "!"
 ```
 
-## Project Structure
+## Documentation
 
-```
-mbasicc_web/
-├── makefile                 # Build configuration
-├── include/
-│   ├── wasm_io.hpp         # Browser I/O interface
-│   └── wasm_filesystem.hpp # Virtual filesystem interface
-├── src/
-│   ├── wasm_io.cpp         # Terminal I/O implementation
-│   ├── wasm_filesystem.cpp # Virtual filesystem implementation
-│   └── wasm_bindings.cpp   # Emscripten/JavaScript bindings
-└── web/
-    ├── index.html          # Main HTML page
-    ├── style.css           # Terminal styling
-    ├── mbasic-ui.js        # UI controller
-    ├── mbasic.js           # Generated WASM loader
-    └── mbasic.wasm         # Compiled interpreter
-```
-
-## Technical Details
-
-### Architecture
-
-- **C++ Layer**: Wraps the mbasicc interpreter with custom I/O handlers for browser environments
-- **Emscripten Embind**: Exposes C++ classes and functions to JavaScript
-- **ASYNCIFY**: Enables blocking I/O operations (like `INPUT`) in WebAssembly by transforming them into async/await patterns
-- **Virtual Filesystem**: In-memory file storage implemented in JavaScript
-
-### Limitations
-
-- **No persistent storage**: Files are lost on page reload (use download to save)
-- **Text-only**: No graphics or sound support
-- **Single-threaded**: One program runs at a time
-- **Memory-bound**: Limited by browser available memory
+- [docs/usage.md](docs/usage.md): terminal commands and the editor panel
+- [docs/deployment.md](docs/deployment.md): deploying the `web/` directory to a static web server, the `.wasm` MIME type
+- [docs/architecture.md](docs/architecture.md): project structure, architecture, limitations
 
 ## License
 
@@ -175,4 +106,3 @@ See the [mbasicc repository](https://github.com/avwohl/mbasicc) for license info
 - [upeepz80](https://github.com/avwohl/upeepz80) - Peephole optimizer for Z80 compilers that write lowercase Z80 assembly language. It shortens jumps to jr, builds djnz loops, and removes dead stores.
 - [uplm80](https://github.com/avwohl/uplm80) - PL/M-80 compiler for the Z80 processor and CP/M. It writes Intel 8080 and Zilog Z80 assembly language.
 - [z80cpmw](https://github.com/avwohl/z80cpmw) - Z80/CP/M emulator for Windows. It emulates the RomWBW HBIOS interface and boots CP/M from disk images.
-
